@@ -23,7 +23,8 @@ import kotlin.math.pow
 class MainActivity : ComponentActivity(), SensorEventListener {
 
     private lateinit var sensorManager: SensorManager
-    private var accelerometer: Sensor? = null
+    private var barometer: Sensor? = null
+
     private var _p by  mutableStateOf(1000.0)
 
     private var _accuracy by mutableStateOf("Unknown")
@@ -33,7 +34,7 @@ class MainActivity : ComponentActivity(), SensorEventListener {
 
         // Initialize Sensor Manager
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
-        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE)
+        barometer = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE)
 
         setContent {
             BUCS501_5_1Theme {
@@ -49,7 +50,7 @@ class MainActivity : ComponentActivity(), SensorEventListener {
 
     override fun onResume() {
         super.onResume()
-        accelerometer?.let {
+        barometer?.let {
             sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_UI)
         }
     }
